@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sladko_Izkushenie.Data;
+using Sladko_Izkushenie.Models;
 
 namespace Sladko_Izkushenie.Controllers
 {
@@ -39,7 +40,12 @@ namespace Sladko_Izkushenie.Controllers
                 return NotFound();
             }
 
-            return View(category);
+            CategoryVM model = new CategoryVM()
+            {
+                Id = category.Id,
+                Category_Type = category.Category_Type
+            };
+            return View(model);
         }
 
         // GET: Categories/Create
@@ -53,11 +59,16 @@ namespace Sladko_Izkushenie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Category_Type")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Category_Type")] CategoryVM category)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                Category model = new Category
+                {
+                    Category_Type = category.Category_Type
+                };
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -77,7 +88,12 @@ namespace Sladko_Izkushenie.Controllers
             {
                 return NotFound();
             }
-            return View(category);
+            
+            CategoryVM model = new CategoryVM()
+            {
+                Category_Type = category.Category_Type
+            };
+            return View(model);
         }
 
         // POST: Categories/Edit/5
@@ -85,23 +101,29 @@ namespace Sladko_Izkushenie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Category_Type")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Category_Type")] CategoryVM category)
         {
-            if (id != category.Id)
+            Category modelToDB = await _context.Categories.FindAsync(id);
+            if (modelToDB==null)
             {
                 return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(modelToDB);
             }
 
             if (ModelState.IsValid)
             {
+                modelToDB.Category_Type = category.Category_Type;
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(modelToDB);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!CategoryExists(modelToDB.Id))
                     {
                         return NotFound();
                     }
@@ -110,9 +132,9 @@ namespace Sladko_Izkushenie.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                
             }
-            return View(category);
+            return RedirectToAction("Details",new { id = category.Id });
         }
 
         // GET: Categories/Delete/5
