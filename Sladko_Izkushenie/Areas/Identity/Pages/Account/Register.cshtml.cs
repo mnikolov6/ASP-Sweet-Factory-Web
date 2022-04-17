@@ -53,12 +53,17 @@ namespace Sladko_Izkushenie.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage = "Пълното Ви име е задължително поле!")]
-            [EmailAddress]
+            [DataType(DataType.Text)]
             [Display(Name = "Име и фамилия")]
             public string FullName { get; set; }
 
+            [Required(ErrorMessage = "Телефонният Ви номер е задължително поле!")]
+            [StringLength(10, ErrorMessage = "{0} трябва да бъде {1} цифри!", MinimumLength = 10)]
+            [DataType((DataType.PhoneNumber))]
+            [Display(Name = "Телефон")]
+            public int PhoneNumber { get; set; }
             [Required(ErrorMessage = "Паролата е задължително поле!")]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "{0} трябва да бъде поне {2} и най-много {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Парола")]
             public string Password { get; set; }
@@ -86,7 +91,7 @@ namespace Sladko_Izkushenie.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Потребителя създаде нов акаунт с парола.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -96,8 +101,8 @@ namespace Sladko_Izkushenie.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Потвърдете Вашия имейл",
+                        $"Моля потвърдете Вашия акаунт като <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>кликнете тук.</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

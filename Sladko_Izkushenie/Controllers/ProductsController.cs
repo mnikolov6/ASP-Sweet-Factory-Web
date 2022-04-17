@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sladko_Izkushenie.Data;
+using Sladko_Izkushenie.Models;
 
 namespace Sladko_Izkushenie.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly SignInManager<User> _signInManager;
+        
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, SignInManager<User> signInManager)
         {
             _context = context;
-        }
+            _signInManager = signInManager;
+        } 
 
         // GET: Products
         public async Task<IActionResult> Index()
@@ -40,14 +46,29 @@ namespace Sladko_Izkushenie.Controllers
             {
                 return NotFound();
             }
-
-            return View(product);
+            ProductVM productVM = new ProductVM()
+            {
+                
+                Id = (int)id,//product.Id,
+                Name = product.Name,
+                Weight = product.Weight,
+                Description = product.Description,
+                ImgURL = product.ImgURL,
+                Price = product.Price,
+                Time_of_register = product.Time_of_register,
+                CategoryId = product.CategoryId,
+                Quantity = 1
+            };
+            return View(productVM);
         }
 
         // GET: Products/Create
+        
+        
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
+
             return View();
         }
 

@@ -10,7 +10,8 @@ namespace Sladko_Izkushenie.Models
     public class CategoryVM
     {
         public int Id { get; set; }
-       
+        [Required(ErrorMessage = "Това поле е задължително!")]
+        [Display(Name = "Тип категория")]
         public string Category_Type { get; set; }
         public ICollection<Product> Products { get; set; }
     }
