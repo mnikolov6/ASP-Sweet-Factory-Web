@@ -28,7 +28,23 @@ namespace Sladko_Izkushenie.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Products.Include(p => p.Category);
-            return View(await applicationDbContext.ToListAsync());
+            return View("Index",await applicationDbContext.ToListAsync());
+            
+        }
+        public async Task<IActionResult> IndexC()
+        {
+            var applicationDbContext = _context.Products.Include(p => p.Category).Where(x => x.CategoryId == 1);
+            return View("IndexC",await applicationDbContext.ToListAsync());
+        }
+        public async Task<IActionResult> IndexS()
+        {
+            var applicationDbContext = _context.Products.Include(p => p.Category).Where(x => x.CategoryId == 2);
+            return View("IndexS",await applicationDbContext.ToListAsync());
+        }
+        public async Task<IActionResult> IndexM()
+        {
+            var applicationDbContext = _context.Products.Include(p => p.Category).Where(x => x.CategoryId == 3);
+            return View("IndexM",await applicationDbContext.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -56,18 +72,20 @@ namespace Sladko_Izkushenie.Controllers
                 ImgURL = product.ImgURL,
                 Price = product.Price,
                 Time_of_register = product.Time_of_register,
-                CategoryId = product.CategoryId,
+                CategoryId = product.Category.Id,
                 Quantity = 1
             };
+            
             return View(productVM);
         }
 
         // GET: Products/Create
+
         
-        
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Category_Type");
 
             return View();
         }
@@ -77,19 +95,21 @@ namespace Sladko_Izkushenie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Weight,Description,ImgURL,Price,Time_of_register,CategoryId")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Weight,Description,ImgURL,Price,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
+                product.Time_of_register = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Category_Type", product.CategoryId);
             return View(product);
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,7 +122,7 @@ namespace Sladko_Izkushenie.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Category_Type", product.CategoryId);
             return View(product);
         }
 
@@ -138,10 +158,10 @@ namespace Sladko_Izkushenie.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Category_Type", product.CategoryId);
             return View(product);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -160,7 +180,7 @@ namespace Sladko_Izkushenie.Controllers
 
             return View(product);
         }
-
+        
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

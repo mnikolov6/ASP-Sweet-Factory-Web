@@ -1,60 +1,82 @@
 ﻿@model Sladko_Izkushenie.Models.ProductVM
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Детайли";
 }
 
-<h1>Details</h1>
+<h1>Детайли</h1>
 
 <div>
-    <h4>Product</h4>
+    <h4>Продукт</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Weight)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Weight)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
-        <dd class = "col-sm-10"> 
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImgURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImgURL)
-        </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Time_of_register)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Time_of_register)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
+        <dd class="col-sm-10">
+            @if (Model.CategoryId == 1)
+            {
+                <p>Торта</p>
+            }
+            @if (Model.CategoryId == 3)
+            {
+                <p>Мъфин</p>
+            }
+            @if (Model.CategoryId == 2)
+            {
+                <p>Сладкиш</p>
+            }
+        </dd>
+        <dd class="col-sm-10 text-center">
+            <img width="350" height="350" src="@Html.DisplayFor(model => model.ImgURL)" />
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@Model.Id">Редактирай</a>
+    @if (Model.CategoryId == 1)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexC">Обратно към листа</a>
+    }
+    @if (Model.CategoryId == 3)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexM">Обратно към листа</a>
+    }
+    @if (Model.CategoryId == 2)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexS">Обратно към листа</a>
+    }
+    
 </div>

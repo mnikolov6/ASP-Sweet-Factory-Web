@@ -1,12 +1,12 @@
 ﻿@model Sladko_Izkushenie.Data.Product
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактирай";
 }
 
-<h1>Edit</h1>
+<h1>Редактирай</h1>
 
-<h4>Product</h4>
+<h4>Продукт</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -49,14 +49,25 @@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Запази" class="btn btn-outline-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @if (Model.CategoryId == 1)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexC">Обратно към листа</a>
+    }
+    @if (Model.CategoryId == 3)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexM">Обратно към листа</a>
+    }
+    @if (Model.CategoryId == 2)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexS">Обратно към листа</a>
+    }
 </div>
 
 @section Scripts {

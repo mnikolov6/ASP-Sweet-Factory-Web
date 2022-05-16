@@ -1,13 +1,14 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Сладко Изкушение</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true"/>
+    @*<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
 </head>
-<body>
+<body >
+    
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -22,19 +23,19 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Торти</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="IndexC">Торти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Мъфини</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="IndexM">Мъфини</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Сладкиши</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="IndexS">Сладкиши</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">За Нас</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">За Нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Контакти</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contacts">Контакти</a>
                         </li>
                         @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Категории</a>
@@ -53,11 +54,11 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Сладко Изкушение - <a asp-area="" asp-controller="Home" asp-action="Privacy">Сигурност</a>
+            &copy; 2022 - Сладко Изкушение
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js" ></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" ></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

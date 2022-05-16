@@ -16,6 +16,7 @@ namespace Sladko_Izkushenie.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+
         }
 
         public IActionResult Index()
@@ -23,10 +24,17 @@ namespace Sladko_Izkushenie.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult AboutUs()
         {
             return View();
         }
+
+        public IActionResult Contacts()
+        {
+            return View();
+        }
+  
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

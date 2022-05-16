@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +16,16 @@ namespace Sladko_Izkushenie.Controllers
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
+       
 
-        public OrdersController(ApplicationDbContext context)
-        {
+        public OrdersController(ApplicationDbContext context,
+                                UserManager<User> userManager
+                                )
+        {   
             _context = context;
+            _userManager = userManager;
+           
         }
 
         // GET: Orders
@@ -45,6 +55,8 @@ namespace Sladko_Izkushenie.Controllers
         }
 
         // GET: Orders/Create
+        
+        [Authorize(Roles ="User,Admin")]
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");

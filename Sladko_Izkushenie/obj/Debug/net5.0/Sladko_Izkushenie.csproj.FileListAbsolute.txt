@@ -183,3 +183,8 @@ D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net
 D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
 D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Views\Home\AboutUs.cshtml.g.cs
+D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Views\Home\Contacts.cshtml.g.cs
+D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Views\Products\IndexC.cshtml.g.cs
+D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Views\Products\IndexM.cshtml.g.cs
+D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Views\Products\IndexS.cshtml.g.cs

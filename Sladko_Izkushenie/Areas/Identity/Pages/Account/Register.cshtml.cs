@@ -52,6 +52,12 @@ namespace Sladko_Izkushenie.Areas.Identity.Pages.Account
 
             public string Email { get; set; }
 
+            [Required(ErrorMessage = "Потребителското име е задължително поле!")]
+            
+            [Display(Name = "Потребителско име")]
+
+            public string UserName { get; set; }
+
             [Required(ErrorMessage = "Пълното Ви име е задължително поле!")]
             [DataType(DataType.Text)]
             [Display(Name = "Име и фамилия")]
@@ -61,7 +67,7 @@ namespace Sladko_Izkushenie.Areas.Identity.Pages.Account
             [StringLength(10, ErrorMessage = "{0} трябва да бъде {1} цифри!", MinimumLength = 10)]
             [DataType((DataType.PhoneNumber))]
             [Display(Name = "Телефон")]
-            public int PhoneNumber { get; set; }
+            public string PhoneNumber { get; set; }
             [Required(ErrorMessage = "Паролата е задължително поле!")]
             [StringLength(100, ErrorMessage = "{0} трябва да бъде поне {2} и най-много {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -87,12 +93,16 @@ namespace Sladko_Izkushenie.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var user = new User
+                { UserName = Input.UserName,
+                  Email = Input.Email,
+                  FullName = Input.FullName,
+                  PhoneNumber = Input.PhoneNumber};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("Потребителя създаде нов акаунт с парола.");
-
+                    var result1 = await _userManager.AddToRoleAsync(user, "User");
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
