@@ -60,9 +60,9 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
+  color: #;
   text-align: left;
-  background-color: #ffc107;
+  background-color: #d3be79;
 }
 
 [tabindex="-1"]:focus {
@@ -88,12 +88,11 @@ p {
 abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
+ 
   text-decoration: underline dotted;
   cursor: help;
   border-bottom: 0;
-  -webkit-text-decoration-skip-ink: none;
-  text-decoration-skip-ink: none;
+  
 }
 
 address {

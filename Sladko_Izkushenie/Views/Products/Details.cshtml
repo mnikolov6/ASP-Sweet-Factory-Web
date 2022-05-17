@@ -65,7 +65,11 @@
     </dl>
 </div>
 <div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
     <a class="btn btn-outline-success" asp-action="Edit" asp-route-id="@Model.Id">Редактирай</a>
+    }
+    
     @if (Model.CategoryId == 1)
     {
         <a class="btn btn-outline-info" asp-action="IndexC">Обратно към листа</a>
@@ -78,5 +82,5 @@
     {
         <a class="btn btn-outline-info" asp-action="IndexS">Обратно към листа</a>
     }
-    
+
 </div>

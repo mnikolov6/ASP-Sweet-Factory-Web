@@ -5,10 +5,13 @@
 }
 
 <h1>Торти</h1>
+@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <p>
+                     <a class="btn btn-outline-success" asp-action="Create">Създай</a>
+                </p>
+            }
 
-<p>
-    <a class="btn btn-outline-success" asp-action="Create">Създай</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -62,11 +65,20 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Category.Category_Type)
                     </td>*@
-                <td>
-                    <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a> |
-                    <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.Id">Детайли</a> |
+            <td>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {   
+                    <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
+                    <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
                     <a class="btn btn-outline-secondary" asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
-                </td>
+                }
+                else
+                {
+                    <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                }
+
+
+            </td>
             </tr>
         }
     </tbody>

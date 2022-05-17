@@ -8,7 +8,7 @@ namespace Sladko_Izkushenie.Data
 {
     public class Product
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         [Display(Name = "Име на продукт")]
         public string Name { get; set; }
         [Display(Name = "Грамаж")]
