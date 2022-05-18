@@ -25,28 +25,43 @@ namespace Sladko_Izkushenie.Controllers
         } 
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var applicationDbContext = _context.Products.Include(p => p.Category);
-            return View("Index",await applicationDbContext.ToListAsync());
-            
+            ViewData["SearchName"] = searchString;
+            var products = await _context.Products.ToListAsync();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(x => x.Name.Contains(searchString)).ToList();
+            }
+            return View(products);
+
+        }
+        [HttpPost]
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on " + searchString;
         }
         public async Task<IActionResult> IndexC()
         {
             var applicationDbContext = _context.Products.Include(p => p.Category).Where(x => x.CategoryId == 1);
             return View("IndexC",await applicationDbContext.ToListAsync());
+           
         }
+       
         public async Task<IActionResult> IndexS()
         {
             var applicationDbContext = _context.Products.Include(p => p.Category).Where(x => x.CategoryId == 2);
             return View("IndexS",await applicationDbContext.ToListAsync());
+            
         }
+        
         public async Task<IActionResult> IndexM()
         {
             var applicationDbContext = _context.Products.Include(p => p.Category).Where(x => x.CategoryId == 3);
             return View("IndexM",await applicationDbContext.ToListAsync());
+            
         }
-
+        
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -70,7 +85,7 @@ namespace Sladko_Izkushenie.Controllers
                 Weight = product.Weight,
                 Description = product.Description,
                 ImgURL = product.ImgURL,
-                Price = product.Price,
+                Price = (float)product.Price,
                 Time_of_register = product.Time_of_register,
                 CategoryId = product.Category.Id,
                 Quantity = 1

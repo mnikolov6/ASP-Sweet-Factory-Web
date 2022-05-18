@@ -12,6 +12,14 @@
         <a class="btn btn-outline-success" asp-action="Create">Създай</a>
     </p>
 }
+<div class="alert-success"> @TempData["Message"]</div>
+@*{bool flag = (bool)TempData["OrderActive"];
+        if (flag)
+        {
+            <p>EHOOOOOOO!!!!</p>
+        }
+    }*@
+
 <table class="table">
     <thead>
         <tr>
@@ -53,7 +61,7 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>*@
                 <td>
-                    <img width="150" height="150" src="@Html.DisplayFor(modelItem => item.ImgURL )" />
+                    <img class="shadow-lg rounded" width="150" height="150" src="@Html.DisplayFor(modelItem => item.ImgURL )" />
                 </td>
                 @*<td>
                         @Html.DisplayFor(modelItem => item.Price)
@@ -80,3 +88,4 @@
         }
     </tbody>
 </table>
+<div class="alert-danger">@ViewData["Message"]</div>

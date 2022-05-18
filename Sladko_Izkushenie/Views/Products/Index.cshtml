@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Sladko_Izkushenie.Data.Product>
 
 @{
-    ViewData["Title"] = "Изкушения";
+    ViewData["Title"] = "Всички продукти";
 }
 
-<h1>Изкушения :)</h1>
+<h1>Всички продукти</h1>
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
@@ -12,6 +12,12 @@
         <a class="btn btn-outline-success" asp-action="Create">Създай</a>
     </p>
 }
+<form asp-action="Index" method="get">
+    <p>
+        Търсачка: <input type="text" name="searchString" value="@ViewData["SearchName"]" />
+        <input class="btn btn-outline-secondary"  type="submit" value="Търси" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -54,7 +60,7 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>*@
                 <td>
-                    <img width="150" height="150" src="@Html.DisplayFor(modelItem => item.ImgURL )" />
+                    <img class="shadow-lg rounded" width="150" height="150" src="@Html.DisplayFor(modelItem => item.ImgURL )" />
                 </td>
                 @*<td>
                         @Html.DisplayFor(modelItem => item.Price)
