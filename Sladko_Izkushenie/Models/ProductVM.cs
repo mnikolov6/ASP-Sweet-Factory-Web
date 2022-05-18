@@ -31,6 +31,6 @@ namespace Sladko_Izkushenie.Models
         public Category Category { get; set; }
         public string UserId { get; set; }
         public int Quantity { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        //public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
