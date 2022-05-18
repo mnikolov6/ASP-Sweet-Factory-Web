@@ -7,7 +7,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4 shadow-lg rounded">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h4>Създаване на нов акаунт!</h4>
             <hr />
@@ -42,11 +42,14 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-outline-primary">Регистрирай се!</button>
+            <button type="submit" class="btn btn-outline-primary align-content-center">Регистрирай се!</button>
         </form>
     </div>
-  
+    <div class="col-md-6 col-md-offset-2">
+        <img width="900" height="620" class="rounded shadow-lg" src="~/Images/Сладко изкушение-logos_transparent.png" />
+    </div>
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
