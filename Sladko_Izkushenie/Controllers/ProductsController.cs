@@ -16,12 +16,14 @@ namespace Sladko_Izkushenie.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<User> _signInManager;
-        
+        private readonly UserManager<User> _userManager;
 
-        public ProductsController(ApplicationDbContext context, SignInManager<User> signInManager)
+
+        public ProductsController(ApplicationDbContext context, SignInManager<User> signInManager, UserManager<User> userManager) 
         {
             _context = context;
             _signInManager = signInManager;
+            _userManager = userManager;
         } 
 
         // GET: Products
@@ -79,7 +81,7 @@ namespace Sladko_Izkushenie.Controllers
             }
             ProductVM productVM = new ProductVM()
             {
-                
+
                 Id = (int)id,//product.Id,
                 Name = product.Name,
                 Weight = product.Weight,
@@ -89,14 +91,48 @@ namespace Sladko_Izkushenie.Controllers
                 Time_of_register = product.Time_of_register,
                 CategoryId = product.Category.Id,
                 Quantity = 1
+               
+                
             };
             
             return View(productVM);
         }
 
+        public async Task<IActionResult> BuyProducts(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            ProductVM productVM = new ProductVM()
+            {
+
+                Id = (int)id,//product.Id,
+                Name = product.Name,
+                Weight = product.Weight,
+                Description = product.Description,
+                ImgURL = product.ImgURL,
+                Price = (float)product.Price,
+                Time_of_register = product.Time_of_register,
+                CategoryId = product.Category.Id,
+                Quantity = 1,
+                UserId = _userManager.GetUserId(User)
+                
+            };
+
+            return View(productVM);
+        }
         // GET: Products/Create
 
-        
+
         [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {

@@ -1,0 +1,74 @@
+﻿@model Sladko_Izkushenie.Models.ProductVM
+
+@{
+    ViewData["Title"] = "Детайли за покупка";
+}
+
+<h1>Детайли за покупка</h1>
+
+<div class="">
+    <form asp-controller="OrderDetails" asp-action="Create" method="post">
+        <div class="">
+            <div>
+                <input type="hidden" asp-for="Id" />
+
+
+                <input type="hidden" asp-for="UserId" />
+
+            </div>
+            <div>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" readonly />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" readonly />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" readonly />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <label asp-for="Quantity" class="control-label">Quantity</label>
+            <input asp-for="Quantity" type="number" maxlength="4" class="form-control" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <input class="btn btn-sm btn-outline-success" type="submit" value="Добави в кошницата" />
+            }
+
+
+        </div>
+    </form>
+</div>
+
+<div>
+    @if (User.Identity.IsAuthenticated)
+    {
+
+
+        <a class="btn btn-sm btn-outline-success" asp-action="Index" asp-controller="OrderDetails">Завърши поръчката</a><!--<input type="button" value="FINAL" asp-action="Index" asp-controller="OrderDetails" />-->
+
+    }
+    else
+    {
+        <p class="alert-dismissible alert-info ">Трябва да сте влезли в акаунта си за да може да направите поръчка.</p>
+        <a class=" btn-sm btn-info" asp-area="Identity" asp-page="/Account/Login">Вход в системата.</a>
+    }
+
+    @if (Model.CategoryId == 1)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexC">Обратно към листа</a>
+    }
+    @if (Model.CategoryId == 3)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexM">Обратно към листа</a>
+    }
+    @if (Model.CategoryId == 2)
+    {
+        <a class="btn btn-outline-info" asp-action="IndexS">Обратно към листа</a>
+    }
+
+</div>

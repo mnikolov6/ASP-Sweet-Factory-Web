@@ -200,3 +200,4 @@ D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net
 D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Manage\PersonalData.cshtml.g.cs
 D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Manage\TwoFactorAuthentication.cshtml.g.cs
 D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Areas\Identity\Pages\Account\Manage\_Layout.cshtml.g.cs
+D:\School Project Info\Project\Sladko_Izkushenie\Sladko_Izkushenie\obj\Debug\net5.0\Razor\Views\Products\BuyProducts.cshtml.g.cs

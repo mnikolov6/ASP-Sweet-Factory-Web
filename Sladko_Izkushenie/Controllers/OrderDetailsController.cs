@@ -29,7 +29,7 @@ namespace Sladko_Izkushenie.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var orderId = GetOrdertId();
+            var orderId = GetOrderId();
             if (orderId == null)
             {
                 return RedirectToAction("Index", "Products");
@@ -47,7 +47,7 @@ namespace Sladko_Izkushenie.Controllers
         }
         [NonAction]
         //метод за взимане на информацията от сесията за потребителя
-        public int? GetOrdertId()
+        public int? GetOrderId()
         {
             return HttpContext.Session.GetInt32("OrderSessionKey");
         }
@@ -118,7 +118,7 @@ namespace Sladko_Izkushenie.Controllers
                 return View();
             }
 
-            if (GetOrdertId() == null) //Ако потребителят няма поръчка досега от влизането си!!
+            if (GetOrderId() == null) //Ако потребителят няма поръчка досега от влизането си!!
             {
                 Order order = new Order()
                 {
@@ -133,7 +133,7 @@ namespace Sladko_Izkushenie.Controllers
             }
 
             //Ако потребителят ВЕЧЕ е направил поръчка!!
-            int shoppingCardId = (int)GetOrdertId();
+            int shoppingCardId = (int)GetOrderId();
             var orderItem = await _context.OrderDetails
                 .SingleOrDefaultAsync(x => (x.ProductId == product.Id && x.OrderId == shoppingCardId));
             if (orderItem == null) //Ако поръчва друг/нов продукт се записва в OrderDetails
@@ -142,7 +142,7 @@ namespace Sladko_Izkushenie.Controllers
                 {
                     ProductId = product.Id,
                     Quantity = product.Quantity,
-                    OrderId = (int)GetOrdertId()
+                    OrderId = (int)GetOrderId()
                 };
                 _context.OrderDetails.Add(orderItem);
             }

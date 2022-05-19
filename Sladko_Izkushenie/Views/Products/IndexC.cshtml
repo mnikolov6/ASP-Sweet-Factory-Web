@@ -11,7 +11,7 @@
                      <a class="btn btn-outline-success" asp-action="Create">Създай</a>
                 </p>
             }
-
+<div class="alert-success"> @TempData["Message"]</div>
 <table class="table">
     <thead>
         <tr>
@@ -67,7 +67,7 @@
                     </td>*@
             <td>
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                {   
+                {
                     <a class="btn btn-outline-secondary" asp-action="Edit" asp-route-id="@item.Id">Редактирай</a>
                     <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
                     <a class="btn btn-outline-secondary" asp-action="Delete" asp-route-id="@item.Id">Изтрий</a>
@@ -75,6 +75,7 @@
                 else
                 {
                     <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.Id">Детайли</a>
+                    <a class="btn btn-outline-secondary" asp-action="BuyProducts" asp-route-id="@item.Id">Купи</a>
                 }
 
 
