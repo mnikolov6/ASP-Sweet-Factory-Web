@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Sladko_Izkushenie.Data.OrderDetail>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Поръчка";
 }
 
-<h1>Index</h1>
+<h1>Поръчка</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
@@ -49,13 +49,14 @@
                     } лв.
 
                 </td>
-                <td>
+                @*<td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                </td>*@
             </tr>
         }
     </tbody>
 </table>
-<a class="btn btn-sm btn-warning" asp-action="Calculate" asp-route-orderId="@Model.First().OrderId">FINAL</a>
+<p class="alert-info"> Финализирай поръчката си и очаквай свързване от нашия екип, за оточняване на адрес за доставка и детайли.</p>
+<a class="btn btn-sm btn-warning" asp-action="Calculate" asp-route-orderId="@Model.First().OrderId">Финализирай</a>
